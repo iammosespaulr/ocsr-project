@@ -1,6 +1,6 @@
-import molecule
-import config
-import utils
+from . import molecule
+from . import config
+from . import utils
 import subprocess
 
 
@@ -25,10 +25,10 @@ def estimate(cor_number=0, size="png:w1920,h1080"):
         failed = 1
         qual = 0.0
     else:
-        for data in final.atom_dict.values():
+        for data in list(final.atom_dict.values()):
             if data[0] == 'A':
                 undefined += 1
-            elif data[0] in degmax.keys():
+            elif data[0] in list(degmax.keys()):
                 if int(data[1]) == degmax[data[0]] + data[2]:
                     qual += 1.0
                 else:

@@ -1,4 +1,4 @@
-import config
+from . import config
 
 
 def show_settings():
@@ -19,8 +19,8 @@ def show_settings():
 
 
 def log(out, *args):
-    print out.format(*args)
+    print(out.format(*args))
 
 
 def blank():
-    print ''
+    print('')

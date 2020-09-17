@@ -22,7 +22,7 @@ def search (smile):
     try:
         compounds = get_compounds(smile, 'smiles')
     except BadRequestError:
-        print 'Failed to search for', smile
+        print('Failed to search for', smile)
         return None
 
     if len(compounds) == 1:
@@ -39,9 +39,9 @@ def pipeline (db_dir):
     for name in listdir(db_dir):
         if name.endswith('.pdf'):
             files.append(name)
-    print 'Found', len(files), 'PDF files in specified directory'
+    print('Found', len(files), 'PDF files in specified directory')
     if len(files) == 0:
-        print 'Nothing to be processed'
+        print('Nothing to be processed')
         return
 
     chdir(db_dir)
@@ -56,9 +56,9 @@ def pipeline (db_dir):
         extract(item, output_dir)
         images = listdir(output_dir)
         chdir(output_dir)
-        print path.splitext(item)[0]
+        print(path.splitext(item)[0])
         for img in images:
-            print path.splitext(item)[0], '-', path.splitext(img)[0]
+            print(path.splitext(item)[0], '-', path.splitext(img)[0])
             links = []
             smiles = recognize(img)
             for smile in smiles:
@@ -67,20 +67,20 @@ def pipeline (db_dir):
                     links.append(result)
             remove(img)
         if len(links) > 0:
-            print "%s: %s" % (path.splitext(item)[0], ", ".join(links))
+            print("%s: %s" % (path.splitext(item)[0], ", ".join(links)))
         else:
-            print "%s: no links" % (path.splitext(item)[0])
+            print("%s: no links" % (path.splitext(item)[0]))
 
     chdir(db_dir)
     shutil.rmtree('images')
 
 
 if len(sys.argv) != 2 or sys.argv[1] == "-h":
-    print 'usage: python linker.py <absolute database location>'
+    print('usage: python linker.py <absolute database location>')
 else:
     if path.isdir(sys.argv[1]):
         database_dir = sys.argv[1]
-        print 'Database location:', database_dir
+        print('Database location:', database_dir)
         pipeline(database_dir)
     else:
-        print 'Specified directory does not exist'
+        print('Specified directory does not exist')

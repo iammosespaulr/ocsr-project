@@ -1,7 +1,7 @@
-import config
-import quality
+from . import config
+from . import quality
 import subprocess
-import utils
+from . import utils
 
 from os import path, mkdir, chdir, remove
 from shutil import move
@@ -92,7 +92,7 @@ def correct(fin):
 
     chdir(config.tmpDir)
     template = 'struct-'
-    print config.osra_path + ' -b -f smi -p -o ' + template + ' ' + fin
+    print(config.osra_path + ' -b -f smi -p -o ' + template + ' ' + fin)
     osra = subprocess.Popen([config.osra_path, '-b', '-f', 'smi', '-p', '-o', template, fin],
                             stdout=subprocess.PIPE)
 
@@ -106,7 +106,7 @@ def correct(fin):
 
         if config.jar_path != '':
             jar_path = 'java -jar ' + config.jar_path + ' ' + image_path
-            print jar_path
+            print(jar_path)
 
             jar = subprocess.Popen(['java', '-jar', config.jar_path, image_path],
                                    stdout=subprocess.PIPE)

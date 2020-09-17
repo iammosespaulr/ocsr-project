@@ -8,8 +8,8 @@
 #   3 - degrees of atoms
 #   ...
 
-import molecule
-import config
+from . import molecule
+from . import config
 import sys
 
 
@@ -35,16 +35,16 @@ def identity(fin, fout, debug):
     atoms = abs(initial.atoms - final.atoms)
     bonds = abs(initial.bonds - final.bonds)
     diff = 0
-    for el, val in initial.atomsByType.items():
-        if final.atomsByType.has_key(el):
+    for el, val in list(initial.atomsByType.items()):
+        if el in final.atomsByType:
             diff += abs(val - final.atomsByType[el])
             # common.log('{0}: {1} --- {2} --> {3}', [el, val, final.atomsByType[el], diff], debug)
         else:
             diff += val
             # common.log('{0}: {1} --- 0 --> {2}', [el, val, diff], debug)
 
-    for el, val in final.atomsByType.items():
-        if not initial.atomsByType.has_key(el):
+    for el, val in list(final.atomsByType.items()):
+        if el not in initial.atomsByType:
             diff += val
             # common.log('{0}: 0 --- {1} --> {2}', [el, val, diff], debug)
 

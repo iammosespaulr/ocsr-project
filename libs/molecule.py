@@ -11,7 +11,7 @@
 # Only MOL (V3000) and SMI file formats are supported.
 
 import os
-import config
+from . import config
 
 
 class Molecule (object):
@@ -65,7 +65,7 @@ class Molecule (object):
                     line = line[:start] + line[(end + 1):]
 
                     # Add to dict or increase counter
-                    if self.atomsByType.has_key(el):
+                    if el in self.atomsByType:
                         self.atomsByType[el] += 1
                     else:
                         if '@' in el:
@@ -86,7 +86,7 @@ class Molecule (object):
                 self.bondsByType['triple'] += line.count('#')
                 self.bondsByType['aromatic'] += line.count(':')
 
-            for atom in self.atomsByType.values():
+            for atom in list(self.atomsByType.values()):
                 self.atoms += atom
 
             self.bonds = self.atoms - 1 + digits / 2

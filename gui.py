@@ -1,11 +1,11 @@
 
-from Tkinter import *
+from tkinter import *
 from os import path
 from libs import process
 import subprocess
-import tkMessageBox
-import tkFileDialog
-import ttk
+import tkinter.messagebox
+import tkinter.filedialog
+import tkinter.ttk
 import Image, ImageTk
 
 
@@ -32,19 +32,19 @@ class MainFrame:
         open_button.pack(side=BOTTOM)
 
     def good(self):
-        tkMessageBox.showinfo("Success", "Recognition is good")
+        tkinter.messagebox.showinfo("Success", "Recognition is good")
 
     def bad(self):
-        tkMessageBox.showinfo("Failure", "Recognition is bad")
+        tkinter.messagebox.showinfo("Failure", "Recognition is bad")
 
     def editor(self, filename):
         baseName = path.basename(filename)
         smipath = path.relpath(path.join(path.splitext(filename)[0], baseName, '.smi'))
-        print smipath
+        print(smipath)
         subprocess.call(['msketch', smipath])
 
     def open_image(self, res, res_label, src_label):
-        fileName = tkFileDialog.askopenfilename()
+        fileName = tkinter.filedialog.askopenfilename()
         folder = path.split(fileName)[0]
         baseName = path.basename(fileName)
         name = path.splitext(baseName)[0]

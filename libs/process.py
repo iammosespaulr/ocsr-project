@@ -3,9 +3,9 @@ import fnmatch
 from joblib import Parallel, delayed
 import shutil
 
-import config
-import correct
-import utils
+from . import config
+from . import correct
+from . import utils
 
 
 def launch():
